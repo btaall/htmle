@@ -1,56 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>discord.gg/uaee</title>
     <style>
+        :root {
+            --green: #00ff00;
+            --green-glow: rgba(0, 255, 0, 0.8);
+            --bg-dark: #000000;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background: url('https://i.pinimg.com/originals/51/ae/a3/51aea3393b8234a1e69d8713a0a58bc3.gif') no-repeat center center fixed;
-            background-size: cover;
             font-family: 'Courier New', Courier, monospace;
-            color: #0000ff;
+            color: var(--green);
+            background: var(--bg-dark);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .image-container img {
-            width: 750px; 
-            height: auto;
-            border: 2px solid #0000ff; 
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0, 0, 255, 0.7); 
+
+        /* فيديو الخلفية */
+        video.bg-video {
+            position: fixed;
+            inset: 0;
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.35) saturate(1.1);
         }
+
+        /* أي عنصر نصي يكون أخضر مع توهج */
+        * {
+            color: var(--green);
+        }
+
         .info {
-            margin-top: 20px;
-            font-size: 1.5em;
-            color: #0000ff; 
-            text-shadow: 0px 0px 8px #0000ff, 0px 0px 15px #0000ff, 0px 0px 25px #0000ff; 
-            letter-spacing: 4.5px; 
+            margin-top: 18px;
+            font-size: 1.2em;
+            text-shadow:
+                0 0 6px var(--green-glow),
+                0 0 12px var(--green-glow),
+                0 0 20px var(--green-glow);
+            letter-spacing: 2.5px;
             white-space: pre-wrap;
+            max-width: 90vw;
         }
+
+        /* العبارة المتحركة */
+        .banner {
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 6px var(--green-glow),
+                0 0 14px var(--green-glow),
+                0 0 26px var(--green-glow);
+            position: relative;
+            overflow: hidden;
+            padding: 10px 16px;
+            border: 1px solid var(--green);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.25);
+            animation: glowPulse 2.5s ease-in-out infinite;
+        }
+
+        .banner-track {
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            will-change: transform;
+            animation: slideX 11s linear infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { text-shadow:
+                0 0 6px var(--green-glow),
+                0 0 14px var(--green-glow),
+                0 0 26px var(--green-glow); 
+                filter: drop-shadow(0 0 2px var(--green));
+            }
+            50% { text-shadow:
+                0 0 10px var(--green-glow),
+                0 0 22px var(--green-glow),
+                0 0 40px var(--green-glow); 
+                filter: drop-shadow(0 0 4px var(--green));
+            }
+        }
+
+        @keyframes slideX {
+            0%   { transform: translateX(15%); }
+            50%  { transform: translateX(-15%); }
+            100% { transform: translateX(15%); }
+        }
+
         .text {
             margin-top: 20px;
-            font-size: 3em; 
-            color: #0000ff; 
-            text-shadow: 0px 0px 8px #0000ff, 0px 0px 15px #0000ff, 0px 0px 25px #0000ff; 
-            letter-spacing: 4.5px; 
+            font-size: 2.6em;
+            text-shadow:
+                0 0 6px var(--green-glow),
+                0 0 14px var(--green-glow),
+                0 0 26px var(--green-glow);
+            letter-spacing: 3px;
         }
     </style>
 </head>
 <body>
-    <div class="image-container">
-        <img src="https://k.top4top.io/p_3540898n01.png" alt="Discord Image">
+
+    <!-- فيديو الخلفية -->
+    <video class="bg-video" autoplay loop playsinline id="bg-video">
+        <source src="https://f.top4top.io/m_35430l8p81.mp4" type="video/mp4">
+        متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+
+    <!-- العبارة المتحركة الجديدة -->
+    <div class="banner">
+        <span class="banner-track">تم التهكير من b7t store — تم التهكير من b7t store — تم التهكير من b7t store</span>
     </div>
-    <audio autoplay loop>
-        <source src="https://g.top4top.io/m_3540ezoen1.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+
+    <div class="text">discord.gg/b7t</div>
+
     <div class="info" id="ip-info">
         <strong>IP: <span id="ip"></span></strong><br>
         <span><strong>City:</strong> <span id="city"></span></span><br>
@@ -60,16 +137,27 @@
         <span><strong>Organization:</strong> <span id="org"></span></span><br>
         <span><strong>Timezone:</strong> <span id="timezone"></span></span>
     </div>
-    <div class="text">discord.gg/b7t</div>
 
     <script>
-         fetch('https://ipinfo.io/json')
-        .then(response => response.json())
-        .then(data => {
-            delete data.readme;
-            const infoDiv = document.getElementById('ip-info');
-            infoDiv.textContent = JSON.stringify(data, null, 2);
-        });
+        // جلب بيانات IP
+        fetch('https://ipinfo.io/json')
+            .then(response => response.json())
+            .then(data => {
+                delete data.readme;
+                const infoDiv = document.getElementById('ip-info');
+                infoDiv.textContent = JSON.stringify(data, null, 2);
+            });
+
+        // تشغيل الفيديو بالصوت بعد أول تفاعل إذا منعه المتصفح
+        const video = document.getElementById('bg-video');
+        const enableSound = () => {
+            video.muted = false;
+            video.play().catch(() => {});
+            document.removeEventListener('click', enableSound);
+            document.removeEventListener('touchstart', enableSound);
+        };
+        document.addEventListener('click', enableSound, { once: true });
+        document.addEventListener('touchstart', enableSound, { once: true });
     </script>
 </body>
 </html>
